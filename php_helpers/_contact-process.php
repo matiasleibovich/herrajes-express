@@ -13,7 +13,7 @@ define('GR_URL', 'https://www.google.com/recaptcha/api/siteverify');
 // Configuration option.
 // Enter the email address that you want to emails to be sent to.
 // Example $address = "john.doe@yourdomain.com";
-$address = "012design@gmail.com, simon@herrajes-express.com, simon@sostenmutuo.com";
+$address = "012design@gmail.com, simon@herrajes-express.com, info@herrajes-express.com";
 
 function validateRecaptcha( $secret, $response, $url = GR_URL ){
 	$ch = curl_init($url);
