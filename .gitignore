@@ -1,0 +1,13 @@
+# Cursor IDE
+.cursor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Dreamweaver sync files
+**/_notes/
+**/dwsync.xml
