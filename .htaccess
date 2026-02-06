@@ -1,20 +1,22 @@
 <IfModule mod_rewrite.c>
-    # Make sure all options are explicit with + or -
-    # We want to remove MultiViews and enable FollowSymLinks (which is often needed for mod_rewrite)
-    Options +FollowSymLinks -MultiViews 
-
+    Options +FollowSymLinks -MultiViews
     RewriteEngine On
     RewriteBase /
 
-    # 1. If the request is for a real file, serve it directly
+    # Si es archivo real, servir directo
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
-    # 2. If the request is for a real directory, serve it directly
+    # Si es directorio real, servir directo
     RewriteCond %{REQUEST_FILENAME} -d
     RewriteRule ^ - [L]
 
-    # 3. Otherwise, try to load the corresponding .php file
-    # Example: /contacto loads contacto.php
+    # Rutas con 2 parametros: /productos/felpas/detalle -> productos.php?p1=felpas&p2=detalle
+    RewriteRule ^([^/]+)/([^/]+)/([^/]+)/?$ $1.php?p1=$2&p2=$3 [L,QSA]
+
+    # Rutas con 1 parametro: /productos/felpas -> productos.php?p1=felpas
+    RewriteRule ^([^/]+)/([^/]+)/?$ $1.php?p1=$2 [L,QSA]
+
+    # Paginas simples sin .php: /contacto -> contacto.php
     RewriteRule ^([^/]+)/?$ $1.php [L,QSA]
 </IfModule>

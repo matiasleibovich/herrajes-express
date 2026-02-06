@@ -55,17 +55,17 @@
 
 										<li class="menu-item-has-children"><a href="/productos">PRODUCTOS</a>
 											<ul class="sub-menu clearfix">
-												<li><a href="bisagras.html">BISAGRAS</a></li>
-												<li><a href="bocallaves.html">BOCALLAVES</a></li>
-												<li><a href="cerraduras.html">CERRADURAS</a></li>
-												<li><a href="cierres.html">CIERRES</a></li>
-												<li><a href="escuadras.html">ESCUADRAS</a></li>
-												<li><a href="felpas.html">FELPAS</a></li>
-												<li><a href="manijas.html">MANIJAS</a></li>
-												<li><a href="oscilo-batientes.html">OSCILO BATIENTES</a></li>
-												<li><a href="plasticos.html">PLASTICOS</a></li>
-												<li><a href="ruedas.html">RUEDAS</a></li>
-												<li><a href="varios.html">VARIOS</a></li>
+											<li><a href="/productos/bisagras">BISAGRAS</a></li>
+											<li><a href="/productos/bocallaves">BOCALLAVES</a></li>
+											<li><a href="/productos/cerraduras">CERRADURAS</a></li>
+											<li><a href="/productos/cierres">CIERRES</a></li>
+											<li><a href="/productos/escuadras">ESCUADRAS</a></li>
+											<li><a href="/productos/felpas">FELPAS</a></li>
+											<li><a href="/productos/manijas">MANIJAS</a></li>
+											<li><a href="/productos/oscilo-batientes">OSCILO BATIENTES</a></li>
+											<li><a href="/productos/plasticos">PLASTICOS</a></li>
+											<li><a href="/productos/ruedas">RUEDAS</a></li>
+											<li><a href="/productos/varios">VARIOS</a></li>
 											</ul>
 										</li>
 
