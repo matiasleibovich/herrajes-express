@@ -1,4 +1,4 @@
-name: Deploy to Google Cloud
+name: Deploy to All Servers
 
 on:
   push:
@@ -6,25 +6,38 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy-google:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.GOOGLE_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ secrets.GOOGLE_SSH_HOST }} >> ~/.ssh/known_hosts
-
       - name: Deploy via rsync
         run: |
           rsync -avz --delete \
-            --exclude '.git' \
-            --exclude '.github' \
-            --exclude '.cursor' \
-            --exclude '.gitignore' \
+            --exclude '.git' --exclude '.github' \
+            --exclude '.cursor' --exclude '.gitignore' \
             -e "ssh -i ~/.ssh/deploy_key" \
             ./ ${{ secrets.GOOGLE_SSH_USER }}@${{ secrets.GOOGLE_SSH_HOST }}:/var/www/herrajes-express/
+
+  deploy-amazon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AMAZON_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p ${{ secrets.AMAZON_SSH_PORT }} -H ${{ secrets.AMAZON_SSH_HOST }} >> ~/.ssh/known_hosts
+      - name: Deploy via rsync
+        run: |
+          rsync -avz --delete \
+            --exclude '.git' --exclude '.github' \
+            --exclude '.cursor' --exclude '.gitignore' \
+            -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.AMAZON_SSH_PORT }}" \
+            ./ ${{ secrets.AMAZON_SSH_USER }}@${{ secrets.AMAZON_SSH_HOST }}:/var/www/herrajes-express.com/web/
