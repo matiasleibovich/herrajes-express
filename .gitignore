@@ -1,5 +1,12 @@
-# Cursor IDE
-.cursor/
+# Cursor IDE (conservar rules y skills en repo)
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+!.cursor/skills/
+!.cursor/skills/**
+
+# Credenciales locales BD
+includes/config.local.php
 
 # OS files
 .DS_Store

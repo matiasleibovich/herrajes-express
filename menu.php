@@ -1,3 +1,8 @@
+<?php
+include_once(__DIR__ . '/includes/categorias.php');
+include_once(__DIR__ . '/includes/categorias_menu.php');
+$categorias_menu = categorias_herrajes_express_arbol();
+?>
 <body class="kl-store-page preloader">
 
 
@@ -16,8 +21,8 @@
 						<div class="logo-container hasInfoCard logosize--yes d-flex align-items-center justify-content-center">
 							<!-- Logo -->
 							<h1 class="site-logo logo" id="logo">
-								<a href="index.html" title="">
-									<img src="images/herrajes_express_logo.svg" class="logo-img" alt="HERRAJES EXPRESS" title="HERRAJES EXPRESS, Accesorios para aberturas de aluminio" />
+								<a href="/" title="">
+									<img src="/images/herrajes_express_logo.svg" class="logo-img" alt="HERRAJES EXPRESS" title="HERRAJES EXPRESS, Accesorios para aberturas de aluminio" />
 								</a>
 							</h1>
 							<!--/ Logo -->
@@ -55,17 +60,7 @@
 
 										<li class="menu-item-has-children"><a href="/productos">PRODUCTOS</a>
 											<ul class="sub-menu clearfix">
-											<li><a href="/productos/bisagras">BISAGRAS</a></li>
-											<li><a href="/productos/bocallaves">BOCALLAVES</a></li>
-											<li><a href="/productos/cerraduras">CERRADURAS</a></li>
-											<li><a href="/productos/cierres">CIERRES</a></li>
-											<li><a href="/productos/escuadras">ESCUADRAS</a></li>
-											<li><a href="/productos/felpas">FELPAS</a></li>
-											<li><a href="/productos/manijas">MANIJAS</a></li>
-											<li><a href="/productos/oscilo-batientes">OSCILO BATIENTES</a></li>
-											<li><a href="/productos/plasticos">PLASTICOS</a></li>
-											<li><a href="/productos/ruedas">RUEDAS</a></li>
-											<li><a href="/productos/varios">VARIOS</a></li>
+<?php categorias_menu_render_items($categorias_menu); ?>
 											</ul>
 										</li>
 
