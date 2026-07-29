@@ -5,8 +5,8 @@
 !.cursor/skills/
 !.cursor/skills/**
 
-# Credenciales locales BD
-includes/config.local.php
+# Credenciales BD (plantilla: includes/DB_connect.sample.php)
+includes/DB_connect.php
 
 # OS files
 .DS_Store

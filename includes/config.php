@@ -1,32 +1,38 @@
 <?php
 // Issue #4: configuración BD y URLs config (herrajes-express)
 
-$HE_DB_HOST = getenv('HE_DB_HOST') ?: 'localhost';
-$HE_DB_USER = getenv('HE_DB_USER') ?: 'sostenmutuo';
-$HE_DB_PASS = getenv('HE_DB_PASS') ?: '123Sosten';
-$HE_DB_NAME = getenv('HE_DB_NAME') ?: 'sostenmutuo';
-
-// Override local (no commitear config.local.php)
-if (file_exists(__DIR__ . '/config.local.php')) {
-	include_once(__DIR__ . '/config.local.php');
-}
-
 $HE_PROJECT_ROOT = dirname(__DIR__);
 
 $host = isset($_SERVER['HTTP_HOST']) ? strtolower($_SERVER['HTTP_HOST']) : '';
 $he_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
 	|| (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https');
 
-// Repo SostenMutuo (imágenes categorías en disco). Override: HE_SOSTENMUTUO_HOME o config.local.php
+$he_es_local = (strpos($host, 'local.') !== false || strpos($host, 'localhost') !== false);
+
+// Credenciales BD: sólo en DB_connect.php (mismo archivo que sostenmutuo.com, no versionado).
+// Ese archivo hace die() si $DB_config no está seteado antes del include.
+$DB_config = $he_es_local ? 'DEV.1' : 'LIVE.1';
+
+if (file_exists(__DIR__ . '/DB_connect.php')) {
+	include_once(__DIR__ . '/DB_connect.php');
+}
+
+// Alias para el resto del proyecto (db.php)
+$HE_DB_HOST = isset($db_hostname) ? $db_hostname : '';
+$HE_DB_USER = isset($db_username) ? $db_username : '';
+$HE_DB_PASS = isset($db_password) ? $db_password : '';
+$HE_DB_NAME = isset($db_name) ? $db_name : '';
+
+// Repo SostenMutuo (imágenes categorías en disco). Override: env HE_SOSTENMUTUO_HOME
 if (!isset($HE_SOSTENMUTUO_HOME) || $HE_SOSTENMUTUO_HOME === '') {
-	$HE_SOSTENMUTUO_HOME = getenv('HE_SOSTENMUTUO_HOME') ?: dirname(__DIR__, 2) . '/sostenmutuo.com.ar';
+	$HE_SOSTENMUTUO_HOME = getenv('HE_SOSTENMUTUO_HOME') ?: dirname(__DIR__, 2) . '/sostenmutuo.com';
 }
 if (!isset($HE_CATEGORIAS_IMAGES_DIR) || $HE_CATEGORIAS_IMAGES_DIR === '') {
 	$HE_CATEGORIAS_IMAGES_DIR = rtrim($HE_SOSTENMUTUO_HOME, '/') . '/images/categorias/';
 }
 $HE_CATEGORIA_IMAGEN_PROXY = false;
 
-if (strpos($host, 'local.') !== false || strpos($host, 'localhost') !== false) {
+if ($he_es_local) {
 	$HE_CONFIG_BASE_URL = 'http://local.config.sostenmutuo.com';
 	// Mixed content: HTTPS en herrajes-express bloquea imágenes HTTP de config
 	if ($he_https) {

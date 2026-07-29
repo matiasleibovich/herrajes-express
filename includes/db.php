@@ -11,8 +11,21 @@ function he_db_conexion() {
 		return $conn;
 	}
 
-	$conn = @mysqli_connect($HE_DB_HOST, $HE_DB_USER, $HE_DB_PASS, $HE_DB_NAME);
+	// DB_connect.php ya abrió $conn sobre $db_name: reusarla en vez de abrir otra
+	if (isset($GLOBALS['conn']) && $GLOBALS['conn'] instanceof mysqli) {
+		$conn = $GLOBALS['conn'];
+		return $conn;
+	}
+
+	// PHP 8+ lanza mysqli_sql_exception en vez de devolver false
+	try {
+		$conn = @mysqli_connect($HE_DB_HOST, $HE_DB_USER, $HE_DB_PASS, $HE_DB_NAME);
+	} catch (mysqli_sql_exception $e) {
+		error_log('he_db_conexion: ' . $e->getMessage());
+		$conn = null;
+	}
 	if (!$conn) {
+		$conn = null;
 		return null;
 	}
 	mysqli_set_charset($conn, 'utf8mb4');
