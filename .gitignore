@@ -1,5 +1,12 @@
-# Cursor IDE
-.cursor/
+# Cursor IDE (conservar rules y skills en repo)
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
+!.cursor/skills/
+!.cursor/skills/**
+
+# Credenciales BD (plantilla: includes/DB_connect.sample.php)
+includes/DB_connect.php
 
 # OS files
 .DS_Store

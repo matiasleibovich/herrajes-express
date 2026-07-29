@@ -86,11 +86,12 @@
 
 
 	<!-- ***** Boostrap Custom / Addons Stylesheets ***** -->
-	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" media="all">
+	<link rel="stylesheet" href="/css/bootstrap.css" type="text/css" media="all">
 
 	<!-- ***** Main + Responsive & Base sizing CSS Stylesheet ***** -->
-	<link rel="stylesheet" href="css/template.css" type="text/css" media="all">
-	<link rel="stylesheet" href="css/responsive.css" type="text/css" media="all">
-	<link rel="stylesheet" href="css/base-sizing.css" type="text/css" media="all">
+	<link rel="stylesheet" href="/css/template.css" type="text/css" media="all">
+	<link rel="stylesheet" href="/css/responsive.css" type="text/css" media="all">
+	<link rel="stylesheet" href="/css/base-sizing.css" type="text/css" media="all">
+	<link rel="stylesheet" href="/css/custom.css" type="text/css" media="all">
 
 </head>

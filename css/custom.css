@@ -8,6 +8,124 @@
 
 .some-css-selector {font-size:13px;}
 
+/* Issue #4: subcategorías en sidebar */
+.sidebar .product-categories .he-subcategorias {
+	list-style: none;
+	padding: 0 0 10px 14px;
+	margin: -4px 0 6px 0;
+}
+.sidebar .product-categories .he-subcategorias li {
+	margin-bottom: 4px;
+}
+.sidebar .product-categories .he-subcategorias a {
+	font-size: 11px;
+	font-weight: 600;
+	color: #757575;
+	text-transform: uppercase;
+}
+.sidebar .product-categories .he-subcategorias li.active a,
+.sidebar .product-categories .he-subcategorias a:hover {
+	color: #CD2122;
+}
+
+/* Issue #4: categoría sin catálogo publicado */
+.he-categoria-vacia {
+	text-align: center;
+	padding: 40px 30px 50px;
+	background: #fff;
+	border: 1px solid #eee;
+}
+.he-categoria-vacia-imagen {
+	margin-bottom: 25px;
+}
+.he-categoria-vacia-imagen img {
+	max-width: 220px;
+	max-height: 220px;
+	width: auto;
+	height: auto;
+	border: 1px solid #e8e8e8;
+	padding: 8px;
+	background: #fafafa;
+}
+.he-categoria-vacia-titulo {
+	font-family: Montserrat, sans-serif;
+	font-size: 22px;
+	font-weight: 700;
+	color: #323232;
+	text-transform: uppercase;
+	margin: 0 0 12px;
+}
+.he-categoria-vacia-texto {
+	font-size: 15px;
+	line-height: 1.6;
+	color: #757575;
+	max-width: 520px;
+	margin: 0 auto 28px;
+}
+.he-categoria-vacia-acciones {
+	margin-bottom: 22px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	width: 100%;
+}
+.he-categoria-vacia-acciones .btn {
+	margin: 0 !important;
+	min-width: 220px;
+	float: none !important;
+	display: inline-block;
+	text-align: center;
+}
+.he-categoria-vacia-whatsapp {
+	font-size: 14px;
+	color: #535353;
+	margin: 0;
+}
+.he-categoria-vacia-whatsapp a {
+	color: #CD2122;
+	font-weight: 600;
+}
+.he-categoria-vacia-whatsapp a:hover {
+	color: #a01819;
+}
+
+/* Issue #4: logo HE por defecto cuando falta foto (categoría o producto) */
+.he-categoria-vacia-imagen img.he-imagen-logo-default {
+	object-fit: contain;
+	max-width: 200px;
+	max-height: 140px;
+	width: auto !important;
+	height: auto !important;
+	margin: 0 auto;
+	padding: 18px 12px;
+	background: #fff;
+}
+
+/* Grilla productos: misma altura de imagen aunque falte la foto */
+.kl-store-page ul.products li.product .product-list-item .kw-prodimage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	aspect-ratio: 1;
+	overflow: hidden;
+}
+.kl-store-page ul.products li.product .product-list-item .kw-prodimage-img {
+	max-width: 100%;
+	max-height: 100%;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+}
+.kl-store-page ul.products li.product .product-list-item .kw-prodimage-img.he-imagen-logo-default {
+	max-width: 55%;
+	max-height: 55%;
+	padding: 0;
+	background: transparent;
+}
+
 
 
 

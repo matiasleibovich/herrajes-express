@@ -3,6 +3,11 @@
     RewriteEngine On
     RewriteBase /
 
+    # Issue #4: listados estáticos duplicados → home/productos PHP (misma grilla que /)
+    RewriteRule ^herrajes/index\.html$ / [R=301,L]
+    RewriteRule ^herrajes/productos\.html$ /productos [R=301,L]
+    RewriteRule ^herrajes/(bisagras|cerraduras|oscilo-batientes|varios|felpas|ruedas)\.html$ /productos/$1 [R=301,L]
+
     # Si es archivo real, servir directo
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
