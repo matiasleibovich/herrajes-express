@@ -9,7 +9,12 @@ $he_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
 
 $he_es_local = (strpos($host, 'local.') !== false || strpos($host, 'localhost') !== false);
 
-// Credenciales BD: sólo en DB_connect.php (mismo archivo que sostenmutuo.com, no versionado).
+// Override local de paths (sin passwords — ver .cursor/rules/credenciales-bd.mdc)
+if (file_exists(__DIR__ . '/config.local.php')) {
+	include_once(__DIR__ . '/config.local.php');
+}
+
+// Credenciales BD: sólo en DB_connect.php (mismo archivo que el ERP, no versionado).
 // Ese archivo hace die() si $DB_config no está seteado antes del include.
 $DB_config = $he_es_local ? 'DEV.1' : 'LIVE.1';
 
@@ -23,9 +28,32 @@ $HE_DB_USER = isset($db_username) ? $db_username : '';
 $HE_DB_PASS = isset($db_password) ? $db_password : '';
 $HE_DB_NAME = isset($db_name) ? $db_name : '';
 
-// Repo SostenMutuo (imágenes categorías en disco). Override: env HE_SOSTENMUTUO_HOME
+// Repo SostenMutuo (imágenes categorías en disco).
+// Orden: ya seteado / env HE_SOSTENMUTUO_HOME / config.local.php / sibling con images/categorias/
 if (!isset($HE_SOSTENMUTUO_HOME) || $HE_SOSTENMUTUO_HOME === '') {
-	$HE_SOSTENMUTUO_HOME = getenv('HE_SOSTENMUTUO_HOME') ?: dirname(__DIR__, 2) . '/sostenmutuo.com';
+	$env_home = getenv('HE_SOSTENMUTUO_HOME');
+	if ($env_home !== false && $env_home !== '') {
+		$HE_SOSTENMUTUO_HOME = $env_home;
+	}
+}
+if (!isset($HE_SOSTENMUTUO_HOME) || $HE_SOSTENMUTUO_HOME === '') {
+	$parent_dir = dirname(__DIR__, 2);
+	$candidatos = array(
+		$parent_dir . '/sostenmutuo.com.ar',
+		$parent_dir . '/sostenmutuo.com',
+	);
+	$HE_SOSTENMUTUO_HOME = '';
+	foreach ($candidatos as $cand) {
+		$imgs = rtrim($cand, '/') . '/images/categorias';
+		if (is_dir($cand) && is_dir($imgs)) {
+			$HE_SOSTENMUTUO_HOME = $cand;
+			break;
+		}
+	}
+	if ($HE_SOSTENMUTUO_HOME === '') {
+		error_log('HE: no se encontró repo SostenMutuo con images/categorias/ (probados: ' . implode(', ', $candidatos) . '). Setear HE_SOSTENMUTUO_HOME o includes/config.local.php');
+		$HE_SOSTENMUTUO_HOME = $parent_dir . '/sostenmutuo.com.ar';
+	}
 }
 if (!isset($HE_CATEGORIAS_IMAGES_DIR) || $HE_CATEGORIAS_IMAGES_DIR === '') {
 	$HE_CATEGORIAS_IMAGES_DIR = rtrim($HE_SOSTENMUTUO_HOME, '/') . '/images/categorias/';

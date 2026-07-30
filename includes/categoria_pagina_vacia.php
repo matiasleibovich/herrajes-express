@@ -14,7 +14,8 @@ $he_vacio_titulo = isset($he_vacio_titulo) ? $he_vacio_titulo : 'Próximamente';
 $he_vacio_texto = isset($he_vacio_texto) ? $he_vacio_texto : 'Estamos preparando el catálogo de esta categoría.';
 $imagen_categoria = '';
 if (isset($categoria) && is_object($categoria) && isset($categoria->id)) {
-	$imagen_categoria = categoria_imagen_url($categoria->id, 1);
+	$parent_img = isset($categoria->parent) ? (int)$categoria->parent : 0;
+	$imagen_categoria = categoria_imagen_url($categoria->id, 1, $parent_img);
 }
 ?>
 		<div id="page_header" class="page-subheader site-subheader-cst ">

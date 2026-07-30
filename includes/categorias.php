@@ -40,21 +40,40 @@ function categoria_config_imagen_remota_url($categoria_id, $slot = 1) {
 	return rtrim($HE_CONFIG_BASE_URL, '/') . '/images/categorias/' . (int)$categoria_id . '-' . (int)$slot . '.jpg';
 }
 
-function categoria_imagen_url($categoria_id, $slot = 1) {
+/**
+ * URL de imagen de categoría (slot).
+ * Si no hay JPG propio y $parent_id es subcategoría Herrajes (parent ≠ 4),
+ * hereda el archivo del parent (ej. Rodamientos 352 para 381–386).
+ */
+function categoria_imagen_url($categoria_id, $slot = 1, $parent_id = 0) {
 	global $HE_CATEGORIA_IMAGEN_PROXY, $HE_CATEGORIAS_IMAGES_DIR, $HE_CONFIG_BASE_URL;
 
-	$path = rtrim($HE_CATEGORIAS_IMAGES_DIR, '/') . '/' . (int)$categoria_id . '-' . (int)$slot . '.jpg';
+	$categoria_id = (int)$categoria_id;
+	$slot = (int)$slot;
+	$parent_id = (int)$parent_id;
+	$dir = rtrim($HE_CATEGORIAS_IMAGES_DIR, '/');
+
+	$id_archivo = $categoria_id;
+	$path = $dir . '/' . $categoria_id . '-' . $slot . '.jpg';
+	if (!is_readable($path) && $parent_id > 0 && $parent_id !== 4) {
+		$path_parent = $dir . '/' . $parent_id . '-' . $slot . '.jpg';
+		if (is_readable($path_parent)) {
+			$id_archivo = $parent_id;
+			$path = $path_parent;
+		}
+	}
+
 	$ver = is_readable($path) ? filemtime($path) : 0;
 
 	if (!empty($HE_CATEGORIA_IMAGEN_PROXY)) {
-		$url = '/categoria-imagen.php?id=' . (int)$categoria_id . '&slot=' . (int)$slot;
+		$url = '/categoria-imagen.php?id=' . $id_archivo . '&slot=' . $slot;
 		if ($ver > 0) {
 			$url .= '&v=' . $ver;
 		}
 		return $url;
 	}
 
-	$url = rtrim($HE_CONFIG_BASE_URL, '/') . '/images/categorias/' . (int)$categoria_id . '-' . (int)$slot . '.jpg';
+	$url = rtrim($HE_CONFIG_BASE_URL, '/') . '/images/categorias/' . $id_archivo . '-' . $slot . '.jpg';
 	if ($ver > 0) {
 		$url .= '?v=' . $ver;
 	}
@@ -97,7 +116,7 @@ function categorias_herrajes_express_listar() {
 	while ($row = mysqli_fetch_object($result)) {
 		$row->slug = categoria_nombre_a_slug($row->nombre, $row->id);
 		$row->url_productos = '/productos/' . $row->slug;
-		$row->imagen_url = categoria_imagen_url($row->id, 1);
+		$row->imagen_url = categoria_imagen_url($row->id, 1, (int)$row->parent);
 		$row->legacy_url = categoria_legacy_html_path($row->slug);
 		$categorias[] = $row;
 	}
