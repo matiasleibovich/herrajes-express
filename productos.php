@@ -1,8 +1,9 @@
 <?php
-// Issue #4: listado de categorías y detalle con shell PHP unificado
+// Issue #4: listado de categorías
+// Issue #8: detalle de categoría con productos en stock desde BD
 
 include_once('includes/categorias.php');
-include_once('includes/legacy_categoria.php');
+include_once('includes/productos_listado.inc.php');
 
 $p1 = isset($_GET['p1']) ? trim($_GET['p1']) : '';
 
@@ -28,18 +29,10 @@ if ($p1 !== '') {
 		productos_mostrar_pagina_vacia($p1, null, $he_vacio_titulo, $he_vacio_texto);
 	}
 
-	$legacy_url = categoria_redirect_legacy_url($p1);
-	if ($legacy_url === '') {
-		$he_vacio_titulo = 'Catálogo en preparación';
-		$he_vacio_texto = 'Esta categoría ya está disponible en nuestro sistema. El detalle de productos se publicará en breve.';
-		productos_mostrar_pagina_vacia($p1, $categoria, $he_vacio_titulo, $he_vacio_texto);
-	}
-
-	$legacy_slug = categoria_legacy_slug_desde_url($legacy_url);
-	$productos_html = legacy_categoria_productos_html($legacy_slug);
-	if ($productos_html === '') {
-		$he_vacio_titulo = 'Catálogo en preparación';
-		$he_vacio_texto = 'Esta categoría ya está disponible en nuestro sistema. El detalle de productos se publicará en breve.';
+	$productos_web = productos_listado_web_por_categoria($categoria);
+	if (empty($productos_web)) {
+		$he_vacio_titulo = 'Sin productos con stock';
+		$he_vacio_texto = 'No hay productos con stock disponible en esta categoría por el momento. Podés consultar otras categorías o escribirnos.';
 		productos_mostrar_pagina_vacia($p1, $categoria, $he_vacio_titulo, $he_vacio_texto);
 	}
 
@@ -77,7 +70,7 @@ if ($p1 !== '') {
 			<div class="container">
 				<div class="row">
 					<div class="left_sidebar col-sm-12 col-md-12 col-lg-9 order-lg-1">
-						<?= $productos_html ?>
+<?php include_once('includes/productos_grid.php'); ?>
 					</div>
 <?php include_once('includes/categorias_sidebar.php'); ?>
 				</div>
