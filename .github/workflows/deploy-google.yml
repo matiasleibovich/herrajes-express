@@ -68,6 +68,10 @@ jobs:
           cp -a .next/static .next/standalone/.next/static
           rm -rf .next/standalone/public .next/standalone/data
           cp -a public .next/standalone/public
+          # El PDF en public/ es un symlink al root; en standalone hay que copiar el archivo real
+          if [ -e public/Catalogo-Herrajes-Express.pdf ]; then
+            cp -L --remove-destination public/Catalogo-Herrajes-Express.pdf .next/standalone/public/Catalogo-Herrajes-Express.pdf
+          fi
           cp -a data .next/standalone/data
           cp -a ecosystem.config.cjs .next/standalone/ecosystem.config.cjs
       - name: Setup SSH
