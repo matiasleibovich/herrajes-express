@@ -54,9 +54,12 @@ export function resolverSeguro(raiz: string, relativo: string): string | null {
 	return candidato;
 }
 
-export function categoriaImagenUrl(categoria: Pick<CategoriaWeb, "imagen_url">): string {
+export function categoriaImagenUrl(categoria: Pick<CategoriaWeb, "id" | "imagen_url">): string {
 	if (categoria.imagen_url) {
 		return imagenProxyUrl(categoria.imagen_url);
+	}
+	if (categoria.id > 0) {
+		return "/images/categorias/" + categoria.id + "-1.jpg";
 	}
 	return LOGO_FALLBACK;
 }
