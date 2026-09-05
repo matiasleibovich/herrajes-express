@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import type { CategoriaNodo } from "@/lib/catalogo";
+import { nombreCategoriaCorto } from "@/lib/catalogo";
 
 export function HeaderNav({ categorias }: { categorias: CategoriaNodo[] }) {
 	const [abierto, setAbierto] = useState(false);
 	const [mega, setMega] = useState(false);
+	const hojas = categorias.filter((cat) => cat.subcategorias.length === 0);
+	const conTipos = categorias.filter((cat) => cat.subcategorias.length > 0);
 
 	return (
 		<>
@@ -35,23 +38,41 @@ export function HeaderNav({ categorias }: { categorias: CategoriaNodo[] }) {
 					>
 						PRODUCTOS
 					</Link>
-					<div className={(mega || abierto ? "grid" : "hidden") + " he-mega z-50 mt-1 grid-cols-1 gap-x-8 gap-y-5 rounded-2xl border border-he-borde bg-white p-6 lg:absolute lg:right-0 lg:w-[760px] lg:grid-cols-3"}>
-						{categorias.map((cat) => (
-							<div key={cat.id}>
-								<Link href={"/productos/" + cat.slug} className="font-display text-[13px] font-semibold tracking-wide text-he-oscuro hover:text-he-rojo" onClick={() => setAbierto(false)}>
+					<div className={(mega || abierto ? "flex" : "hidden") + " he-mega z-50 mt-1 flex-col gap-5 rounded-2xl border border-he-borde bg-white p-6 lg:absolute lg:right-0 lg:w-200"}>
+						<div className="grid grid-cols-1 gap-x-8 gap-y-4 lg:grid-cols-3">
+							{hojas.map((cat) => (
+								<Link
+									key={cat.id}
+									href={"/productos/" + cat.slug}
+									className="font-display text-[13px] font-semibold tracking-wide text-he-oscuro hover:text-he-rojo"
+									onClick={() => setAbierto(false)}
+								>
 									{cat.nombre.toUpperCase()}
 								</Link>
-								{cat.subcategorias.length > 0 ? (
-									<ul className="mt-2 space-y-1.5">
-										{cat.subcategorias.map((sub) => (
-											<li key={sub.id}>
-												<Link href={"/productos/" + sub.slug} className="text-[13px] text-he-texto hover:text-he-rojo" onClick={() => setAbierto(false)}>
-													{sub.nombre}
-												</Link>
-											</li>
-										))}
-									</ul>
-								) : null}
+							))}
+						</div>
+						{conTipos.map((cat) => (
+							<div key={cat.id} className="border-t border-he-borde pt-4">
+								<Link
+									href={"/productos/" + cat.slug}
+									className="font-display text-[13px] font-semibold tracking-wide text-he-oscuro hover:text-he-rojo"
+									onClick={() => setAbierto(false)}
+								>
+									{cat.nombre.toUpperCase()}
+								</Link>
+								<ul className="mt-3 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-2">
+									{cat.subcategorias.map((sub) => (
+										<li key={sub.id}>
+											<Link
+												href={"/productos/" + sub.slug}
+												className="block rounded-lg px-2 py-1.5 text-[13px] leading-snug text-he-texto hover:bg-he-fondo hover:text-he-rojo"
+												onClick={() => setAbierto(false)}
+											>
+												{nombreCategoriaCorto(sub.nombre, cat.nombre)}
+											</Link>
+										</li>
+									))}
+								</ul>
 							</div>
 						))}
 					</div>

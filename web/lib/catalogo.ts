@@ -84,6 +84,20 @@ export function catalogoWebSlugExcepciones(): Record<string, string> {
 	return { ...SLUG_EXCEPCIONES };
 }
 
+export function nombreCategoriaCorto(nombre: string, padreNombre = ""): string {
+	const nombreTrim = String(nombre || "").trim();
+	const padre = String(padreNombre || "").trim();
+	if (nombreTrim === "" || padre === "") {
+		return nombreTrim;
+	}
+	const esc = padre.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+	const recortado = nombreTrim
+		.replace(new RegExp("^" + esc + "\\s+", "i"), "")
+		.replace(new RegExp("\\s+" + esc + "$", "i"), "")
+		.trim();
+	return recortado !== "" ? recortado : nombreTrim;
+}
+
 export function catalogoWebSlugDesdeNombre(nombre: string): string {
 	const excepciones = catalogoWebSlugExcepciones();
 	if (Object.prototype.hasOwnProperty.call(excepciones, nombre)) {

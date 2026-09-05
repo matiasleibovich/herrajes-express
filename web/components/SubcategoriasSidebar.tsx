@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { CategoriaNodo, CategoriaWeb } from "@/lib/catalogo";
+import { nombreCategoriaCorto } from "@/lib/catalogo";
 
 export function SubcategoriasSidebar({
 	arbol,
@@ -30,7 +31,7 @@ export function SubcategoriasSidebar({
 												href={"/productos/" + sub.slug}
 												className={"text-[13px] " + (sub.id === activa.id ? "font-semibold text-he-rojo" : "hover:text-he-rojo")}
 											>
-												{sub.nombre}
+												{nombreCategoriaCorto(sub.nombre, cat.nombre)}
 											</Link>
 										</li>
 									))}

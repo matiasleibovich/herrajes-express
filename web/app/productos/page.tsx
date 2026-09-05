@@ -47,15 +47,6 @@ export default async function ProductosPage() {
 					{categorias.map((categoria) => (
 						<li key={categoria.id}>
 							<CategoriaCard categoria={categoria} />
-							{categoria.subcategorias.length > 0 ? (
-								<ul className="mt-3 space-y-1 px-1 text-sm">
-									{categoria.subcategorias.map((sub) => (
-										<li key={sub.id}>
-											<a href={"/productos/" + sub.slug} className="hover:text-he-rojo">{sub.nombre}</a>
-										</li>
-									))}
-								</ul>
-							) : null}
 						</li>
 					))}
 				</ul>
