@@ -1,8 +1,9 @@
 import { existsSync, readFileSync, statSync } from "node:fs";
-import { join, resolve, sep } from "node:path";
-import { categoriasImagesDir, shopImagesDir } from "./env";
-import type { FichaWeb } from "./catalogo";
+import { resolve, sep } from "node:path";
+import type { CategoriaWeb, FichaWeb } from "./catalogo";
 import { claveFicha } from "./catalogo";
+import { shopImagesDir } from "./env";
+import { imagenProxyUrl } from "./imagenProxy";
 import { LOGO_FALLBACK } from "./imagenes_publicas";
 
 export const NOMBRE_SEGURO = /^[A-Za-z0-9._-]+$/;
@@ -53,27 +54,18 @@ export function resolverSeguro(raiz: string, relativo: string): string | null {
 	return candidato;
 }
 
-export function categoriaImagenPath(id: number, slot = 1, parent = 0): string | null {
-	const dir = categoriasImagesDir();
-	const propio = join(dir, id + "-" + slot + ".jpg");
-	if (existsSync(propio)) {
-		return propio;
+export function categoriaImagenUrl(categoria: Pick<CategoriaWeb, "imagen_url">): string {
+	if (categoria.imagen_url) {
+		return imagenProxyUrl(categoria.imagen_url);
 	}
-	if (parent > 0 && parent !== 4) {
-		const heredado = join(dir, parent + "-" + slot + ".jpg");
-		if (existsSync(heredado)) {
-			return heredado;
-		}
-	}
-	return null;
+	return LOGO_FALLBACK;
 }
 
-export function categoriaImagenUrl(id: number, parent = 0, slot = 1): string {
-	return "/api/imagen/categoria?id=" + id + "&parent=" + parent + "&slot=" + slot;
-}
-
-export function productoImagenUrl(codigo: string, slot = 1): string {
-	return "/api/imagen/producto?codigo=" + encodeURIComponent(codigo) + "&slot=" + slot;
+export function productoImagenUrl(absoluta: string): string {
+	if (absoluta) {
+		return imagenProxyUrl(absoluta);
+	}
+	return LOGO_FALLBACK;
 }
 
 export function legacyImagenUrl(relativo: string): string {
@@ -81,8 +73,8 @@ export function legacyImagenUrl(relativo: string): string {
 }
 
 export function fichaImagenUrl(ficha: FichaWeb): string {
-	if (ficha.foto.existe && ficha.foto.codigo) {
-		return productoImagenUrl(ficha.foto.codigo, 1);
+	if (ficha.foto.existe && ficha.foto.url) {
+		return productoImagenUrl(ficha.foto.url);
 	}
 	const mapa = cargarMapaLegacy();
 	const rel = mapa[claveFicha(ficha)];

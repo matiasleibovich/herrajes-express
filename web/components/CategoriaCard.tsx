@@ -4,7 +4,7 @@ import type { CategoriaWeb } from "@/lib/catalogo";
 import { ImageWithFallback } from "./ImageWithFallback";
 
 export function CategoriaCard({ categoria }: { categoria: CategoriaWeb }) {
-	const src = categoriaImagenUrl(categoria.id, categoria.parent, 1);
+	const src = categoriaImagenUrl(categoria);
 	return (
 		<Link href={"/productos/" + categoria.slug} className="group block overflow-hidden rounded-2xl bg-white shadow-[0_10px_30px_rgba(22,22,22,0.05)] ring-1 ring-black/5 transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(22,22,22,0.1)]">
 			<div className="bg-[#f3f1ed] p-6">

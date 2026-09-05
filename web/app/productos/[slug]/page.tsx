@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	if (!cat) {
 		return { title: "Categoría no encontrada" };
 	}
-	const imagen = categoriaImagenUrl(cat.id, cat.parent, 1);
+	const imagen = categoriaImagenUrl(cat);
 	return {
 		title: cat.nombre,
 		description: "Catálogo de " + cat.nombre + " para carpintería de aluminio.",
@@ -82,7 +82,7 @@ export default async function CategoriaPage({ params }: Props) {
 						) : (
 							<div className="rounded-2xl bg-white p-10 text-center shadow-[0_10px_30px_rgba(22,22,22,0.05)] ring-1 ring-black/5">
 								<img
-									src={categoriaImagenUrl(cat.id, cat.parent, 1)}
+									src={categoriaImagenUrl(cat)}
 									alt={cat.nombre}
 									className="he-card-img mx-auto mb-6 max-w-[220px] rounded-xl bg-[#f3f1ed] p-4"
 								/>

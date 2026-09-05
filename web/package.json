@@ -11,7 +11,6 @@
     "imagenes:mapa": "tsx scripts/generar_mapa_legacy.ts"
   },
   "dependencies": {
-    "mysql2": "^3.24.3",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8"

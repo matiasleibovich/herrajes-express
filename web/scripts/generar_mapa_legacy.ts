@@ -1,7 +1,6 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync, statSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 import { config as loadEnv } from "./cargar_env";
-import { closePool } from "../lib/db";
 import { categorias, claveFicha, fichasPorCategoria, type FichaWeb } from "../lib/catalogo";
 import { legacyDir, shopImagesDir } from "../lib/env";
 
@@ -177,11 +176,9 @@ async function main() {
 	const dest = resolve(process.cwd(), "data", "imagenes_legacy.json");
 	writeFileSync(dest, JSON.stringify(ordenado, null, "\t") + "\n", "utf8");
 	console.log("Mapa escrito: " + dest + " (" + claves.length + " fichas)");
-	await closePool();
 }
 
-void main().catch(async (err: unknown) => {
+void main().catch((err: unknown) => {
 	console.error(err);
-	await closePool();
 	process.exit(1);
 });
