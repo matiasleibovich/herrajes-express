@@ -21,7 +21,9 @@ jobs:
           rsync -avz --delete \
             --exclude '.git' --exclude '.github' \
             --exclude '.cursor' --exclude '.gitignore' \
-            --exclude 'includes/DB_connect.php' \
+            --exclude '/includes/DB_connect.php' \
+            --exclude '/includes/config.local.php' \
+            --exclude '/web/' \
             -e "ssh -i ~/.ssh/deploy_key" \
             ./ ${{ secrets.GOOGLE_SSH_USER }}@${{ secrets.GOOGLE_SSH_HOST }}:/var/www/herrajes-express/
 
@@ -40,6 +42,8 @@ jobs:
           rsync -avz --delete \
             --exclude '.git' --exclude '.github' \
             --exclude '.cursor' --exclude '.gitignore' \
-            --exclude 'includes/DB_connect.php' \
+            --exclude '/includes/DB_connect.php' \
+            --exclude '/includes/config.local.php' \
+            --exclude '/web/' \
             -e "ssh -i ~/.ssh/deploy_key -p ${{ secrets.AMAZON_SSH_PORT }}" \
             ./ ${{ secrets.AMAZON_SSH_USER }}@${{ secrets.AMAZON_SSH_HOST }}:/var/www/herrajes-express.com/web/
