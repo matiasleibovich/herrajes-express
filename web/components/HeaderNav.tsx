@@ -59,7 +59,7 @@ export function HeaderNav({ categorias }: { categorias: CategoriaNodo[] }) {
 				<Link href="/empresa" className="px-3 py-2 font-display text-[13px] font-semibold tracking-[0.14em] text-he-oscuro hover:text-he-rojo" onClick={() => setAbierto(false)}>
 					LA EMPRESA
 				</Link>
-				<Link href="/contacto" className="mt-2 inline-flex items-center justify-center bg-he-rojo px-5 py-2.5 font-display text-[13px] font-semibold tracking-[0.14em] text-white hover:bg-he-rojo-oscuro lg:mt-0 lg:ml-3" onClick={() => setAbierto(false)}>
+				<Link href="/contacto" className="mt-2 inline-flex items-center justify-center bg-he-rojo px-5 py-2.5 font-display text-[13px] font-semibold tracking-[0.14em] text-white hover:bg-he-rojo-oscuro hover:text-white lg:mt-0 lg:ml-3" onClick={() => setAbierto(false)}>
 					CONTACTO
 				</Link>
 			</nav>

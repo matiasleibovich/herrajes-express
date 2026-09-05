@@ -30,6 +30,10 @@ export const metadata: Metadata = {
 		template: "%s | Herrajes Express",
 	},
 	description: "Herrajes y accesorios para carpintería de aluminio. Catálogo de bisagras, rodamientos, cerraduras, felpas y más.",
+	icons: {
+		icon: [{ url: "/images/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" }],
+		apple: [{ url: "/images/favicons/apple-touch-icon-precomposed.png" }],
+	},
 	openGraph: {
 		locale: "es_AR",
 		type: "website",
