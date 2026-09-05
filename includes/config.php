@@ -58,13 +58,18 @@ if (!isset($HE_SOSTENMUTUO_HOME) || $HE_SOSTENMUTUO_HOME === '') {
 if (!isset($HE_CATEGORIAS_IMAGES_DIR) || $HE_CATEGORIAS_IMAGES_DIR === '') {
 	$HE_CATEGORIAS_IMAGES_DIR = rtrim($HE_SOSTENMUTUO_HOME, '/') . '/images/categorias/';
 }
+if (!isset($HE_PRODUCTOS_IMAGES_DIR) || $HE_PRODUCTOS_IMAGES_DIR === '') {
+	$HE_PRODUCTOS_IMAGES_DIR = rtrim($HE_SOSTENMUTUO_HOME, '/') . '/images/productos/';
+}
 $HE_CATEGORIA_IMAGEN_PROXY = false;
+$HE_PRODUCTO_IMAGEN_PROXY = false;
 
 if ($he_es_local) {
 	$HE_CONFIG_BASE_URL = 'http://local.config.sostenmutuo.com';
 	// Mixed content: HTTPS en herrajes-express bloquea imágenes HTTP de config
 	if ($he_https) {
 		$HE_CATEGORIA_IMAGEN_PROXY = true;
+		$HE_PRODUCTO_IMAGEN_PROXY = true;
 	}
 } else {
 	$HE_CONFIG_BASE_URL = 'https://config.sostenmutuo.com';

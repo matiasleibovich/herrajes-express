@@ -12,6 +12,12 @@ includes/config.local.php
 .DS_Store
 Thumbs.db
 
+# App Next.js (local)
+web/node_modules/
+web/.next/
+web/.env*
+!web/.env.example
+
 # Logs
 *.log
 
