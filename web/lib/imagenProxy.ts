@@ -8,6 +8,7 @@ const HOSTS_PERMITIDOS = new Set([
 const PATHS_PERMITIDOS = [
 	/^\/images\/categorias\/[A-Za-z0-9._-]+\.jpe?g$/i,
 	/^\/images\/productos\/[A-Za-z0-9._-]+\.jpe?g$/i,
+	/^\/images\/slideshows\/(herrajes|telas)\/[A-Za-z0-9._-]+\.jpe?g$/i,
 ];
 
 export function urlImagenPermitida(raw: string): URL | null {
@@ -58,7 +59,7 @@ export async function proxyImagenRemota(raw: string): Promise<Response> {
 	}
 	let res: Response;
 	try {
-		res = await fetch(url.toString(), { cache: "no-store" });
+		res = await fetch(url.toString(), { cache: "no-store", redirect: "manual" });
 	} catch {
 		return new Response("No encontrado", { status: 404 });
 	}

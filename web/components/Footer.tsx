@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { getSitioConfig } from "@/lib/sitioConfig";
 import { whatsappGeneralUrl } from "@/lib/whatsapp";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 
-export function Footer() {
+export async function Footer() {
+	const sitio = await getSitioConfig();
 	const anio = new Date().getFullYear();
 	return (
 		<footer className="mt-auto bg-he-oscuro text-white/70">
@@ -25,16 +27,16 @@ export function Footer() {
 				<div>
 					<h3 className="font-display text-[12px] font-semibold tracking-[0.18em] text-white">VENTAS</h3>
 					<p className="mt-4 text-sm leading-7">
-						<a href={whatsappGeneralUrl()} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-white">
+						<a href={whatsappGeneralUrl(sitio.whatsapp)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-white">
 							<WhatsAppIcon className="h-4 w-4" />
-							+54 11 4448-5714
+							{sitio.telefono}
 						</a>
 						<br />
-						<a href="mailto:info@herrajes-express.com" className="hover:text-white">info@herrajes-express.com</a>
+						<a href={"mailto:" + sitio.email} className="hover:text-white">{sitio.email}</a>
 						<br />
 						<span className="mt-3 block text-white/55">
-							Av. San Martín 2380, Oficina 2<br />
-							Villa Carlos Paz, Córdoba
+							{sitio.direccion}<br />
+							{sitio.localidad}, {sitio.provincia}
 						</span>
 					</p>
 				</div>

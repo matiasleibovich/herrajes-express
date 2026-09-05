@@ -4,9 +4,9 @@ import type { FichaWeb } from "@/lib/catalogo";
 import { ImageWithFallback } from "./ImageWithFallback";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 
-export function FichaCard({ ficha }: { ficha: FichaWeb }) {
+export function FichaCard({ ficha, whatsapp }: { ficha: FichaWeb; whatsapp?: string }) {
 	const codigo = ficha.codigos_producto[0] || ficha.agrupador;
-	const href = productoWhatsappUrl(codigo, ficha.titulo);
+	const href = productoWhatsappUrl(codigo, ficha.titulo, whatsapp);
 	const alt = codigo ? codigo + " - " + ficha.titulo : ficha.titulo;
 	return (
 		<a href={href} target="_blank" rel="noopener noreferrer" className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_10px_30px_rgba(22,22,22,0.05)] ring-1 ring-black/5 transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(22,22,22,0.1)]">

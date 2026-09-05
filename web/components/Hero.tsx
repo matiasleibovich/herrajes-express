@@ -3,31 +3,23 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const SLIDES = [
-	"/images/sliders/camioneta.jpg",
-	"/images/sliders/aldaba_reversible.jpg",
-	"/images/sliders/bipunto90.jpg",
-	"/images/sliders/bipunto90_grande.jpg",
-	"/images/sliders/bipunto90_standard.jpg",
-	"/images/sliders/bipunto90_uniero.jpg",
-	"/images/sliders/felpa7x4.jpg",
-	"/images/sliders/slider_rueda_A-30_doble_2.jpg",
-];
-
-export function Hero() {
+export function Hero({ slides }: { slides: string[] }) {
 	const [i, setI] = useState(0);
 	useEffect(() => {
+		if (slides.length < 2) {
+			return;
+		}
 		const t = window.setInterval(() => {
-			setI((v) => (v + 1) % SLIDES.length);
+			setI((v) => (v + 1) % slides.length);
 		}, 6500);
 		return () => window.clearInterval(t);
-	}, []);
+	}, [slides.length]);
 
 	return (
 		<section className="relative h-[68vh] min-h-[420px] overflow-hidden bg-he-oscuro md:h-[78vh]">
-			{SLIDES.map((src, idx) => (
+			{slides.map((src, idx) => (
 				<div
-					key={src}
+					key={src + "-" + idx}
 					className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
 					style={{ backgroundImage: "url(" + src + ")", opacity: idx === i ? 1 : 0 }}
 				/>
@@ -53,17 +45,19 @@ export function Hero() {
 					</div>
 				</div>
 			</div>
-			<div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2">
-				{SLIDES.map((src, idx) => (
-					<button
-						key={src}
-						type="button"
-						aria-label={"Slide " + (idx + 1)}
-						className={"h-1.5 rounded-full transition-all " + (idx === i ? "w-8 bg-white" : "w-2.5 bg-white/45")}
-						onClick={() => setI(idx)}
-					/>
-				))}
-			</div>
+			{slides.length > 1 ? (
+				<div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+					{slides.map((src, idx) => (
+						<button
+							key={src + "-dot-" + idx}
+							type="button"
+							aria-label={"Slide " + (idx + 1)}
+							className={"h-1.5 rounded-full transition-all " + (idx === i ? "w-8 bg-white" : "w-2.5 bg-white/45")}
+							onClick={() => setI(idx)}
+						/>
+					))}
+				</div>
+			) : null}
 		</section>
 	);
 }

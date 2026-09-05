@@ -7,19 +7,19 @@ export function JsonLd({ data }: { data: Record<string, unknown> | Record<string
 	);
 }
 
-export function organizationLd(site: string) {
+export function organizationLd(site: string, contacto?: { email: string; telefono: string; direccion: string; localidad: string; provincia: string }) {
 	return {
 		"@context": "https://schema.org",
 		"@type": "Organization",
 		name: "Herrajes Express",
 		url: site,
-		email: "info@herrajes-express.com",
-		telephone: "+54-11-4448-5714",
+		email: contacto?.email || "info@herrajes-express.com",
+		telephone: contacto?.telefono || "+54-11-4448-5714",
 		address: {
 			"@type": "PostalAddress",
-			streetAddress: "Av. San Martín 2380, Oficina 2",
-			addressLocality: "Villa Carlos Paz",
-			addressRegion: "Córdoba",
+			streetAddress: contacto?.direccion || "Av. San Martín 2380, Oficina 2",
+			addressLocality: contacto?.localidad || "Villa Carlos Paz",
+			addressRegion: contacto?.provincia || "Córdoba",
 			addressCountry: "AR",
 		},
 		logo: site + "/images/herrajes_express_logo.svg",

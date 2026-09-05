@@ -8,6 +8,7 @@ import { SubcategoriasSidebar } from "@/components/SubcategoriasSidebar";
 import { categoriaPorSlug, categoriasArbol, fichasPorCategoria } from "@/lib/catalogo";
 import { siteUrl } from "@/lib/env";
 import { categoriaImagenUrl } from "@/lib/imagenes";
+import { getSitioConfig } from "@/lib/sitioConfig";
 import { categoriaWhatsappUrl } from "@/lib/whatsapp";
 
 export const dynamic = "force-dynamic";
@@ -40,9 +41,10 @@ export default async function CategoriaPage({ params }: Props) {
 	if (!cat) {
 		notFound();
 	}
-	const [fichas, arbol] = await Promise.all([
+	const [fichas, arbol, sitio] = await Promise.all([
 		fichasPorCategoria(cat.id),
 		categoriasArbol(),
+		getSitioConfig(),
 	]);
 	const site = siteUrl();
 	const crumbs = [
@@ -75,7 +77,7 @@ export default async function CategoriaPage({ params }: Props) {
 							<ul className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
 								{fichas.map((ficha) => (
 									<li key={ficha.categoria_id + "|" + ficha.agrupador + "|" + ficha.variante}>
-										<FichaCard ficha={ficha} />
+										<FichaCard ficha={ficha} whatsapp={sitio.whatsapp} />
 									</li>
 								))}
 							</ul>
@@ -98,7 +100,7 @@ export default async function CategoriaPage({ params }: Props) {
 								</div>
 								<p className="mt-6 text-sm">
 									¿Necesitás este producto ahora?{" "}
-									<a href={categoriaWhatsappUrl(cat.nombre)} target="_blank" rel="noopener noreferrer" className="font-semibold text-he-rojo">
+									<a href={categoriaWhatsappUrl(cat.nombre, sitio.whatsapp)} target="_blank" rel="noopener noreferrer" className="font-semibold text-he-rojo">
 										Escribinos por WhatsApp
 									</a>
 								</p>

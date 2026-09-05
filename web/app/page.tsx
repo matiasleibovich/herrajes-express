@@ -6,6 +6,7 @@ import { JsonLd, itemListLd } from "@/components/JsonLd";
 import { SectionTitle } from "@/components/SectionTitle";
 import { categoriasRaiz } from "@/lib/catalogo";
 import { siteUrl } from "@/lib/env";
+import { getSitioConfig, slidesHeroUrls } from "@/lib/sitioConfig";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-	const categorias = await categoriasRaiz();
+	const [categorias, sitio] = await Promise.all([categoriasRaiz(), getSitioConfig()]);
 	const site = siteUrl();
 	return (
 		<main>
@@ -33,7 +34,7 @@ export default async function HomePage() {
 					categorias.map((c) => ({ name: c.nombre, url: "/productos/" + c.slug })),
 				)}
 			/>
-			<Hero />
+			<Hero slides={slidesHeroUrls(sitio)} />
 			<CtaCatalogo />
 			<section className="mx-auto max-w-6xl px-4 py-20">
 				<SectionTitle kicker="PRODUCTOS" title="Accesorios para carpintería de aluminio" />

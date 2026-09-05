@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { JsonLd, organizationLd } from "@/components/JsonLd";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { siteUrl } from "@/lib/env";
+import { getSitioConfig } from "@/lib/sitioConfig";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -43,10 +44,11 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
+	const sitio = await getSitioConfig();
 	return (
 		<html lang="es" className={`${montserrat.variable} ${openSans.variable} h-full antialiased`}>
 			<body className="flex min-h-full flex-col bg-he-fondo font-sans text-he-texto">
-				<JsonLd data={organizationLd(site)} />
+				<JsonLd data={organizationLd(site, sitio)} />
 				<Header />
 				{children}
 				<Footer />
