@@ -1,0 +1,59 @@
+@import "tailwindcss";
+
+@theme inline {
+	--color-he-rojo: #cd2122;
+	--color-he-rojo-oscuro: #a81a1b;
+	--color-he-texto: #5a5a5a;
+	--color-he-fondo: #f6f5f3;
+	--color-he-oscuro: #161616;
+	--color-he-borde: #e6e2dc;
+	--font-sans: var(--font-open-sans);
+	--font-display: var(--font-montserrat);
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	background: var(--color-he-fondo);
+	color: var(--color-he-texto);
+	font-family: var(--font-open-sans), "Open Sans", sans-serif;
+}
+
+h1, h2, h3, h4, h5, .font-display {
+	font-family: var(--font-montserrat), Montserrat, sans-serif;
+}
+
+a {
+	color: inherit;
+}
+
+.he-card-img {
+	aspect-ratio: 1 / 1;
+	object-fit: contain;
+	background: transparent;
+}
+
+.he-mega {
+	box-shadow: 0 24px 50px rgba(22, 22, 22, 0.12);
+}
+
+.he-wa {
+	box-shadow: 0 14px 32px rgba(37, 211, 102, 0.38);
+}
+
+.he-input {
+	width: 100%;
+	margin-top: 0.4rem;
+	border: 1px solid var(--color-he-borde);
+	background: #fff;
+	padding: 0.75rem 0.9rem;
+	font-size: 0.95rem;
+	outline: none;
+}
+
+.he-input:focus {
+	border-color: #cd2122;
+	box-shadow: 0 0 0 3px rgba(205, 33, 34, 0.12);
+}

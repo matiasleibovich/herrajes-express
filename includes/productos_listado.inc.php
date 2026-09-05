@@ -28,8 +28,8 @@ function productos_categoria_ids_con_descendientes($categoria) {
 }
 
 /**
- * Productos con stock físico > 0 en las categorías dadas.
- * Incluye discontinuos con stock (activo=0 OR discontinuo=1) según plan #8.
+ * Productos con stock fisico > 0 en las categorias dadas.
+ * Solo activos no discontinuos. Las ofertas internas no se publican.
  *
  * @return array<object>
  */
@@ -50,7 +50,9 @@ function productos_en_stock_por_categorias(array $categoria_ids) {
 		FROM productos p
 		INNER JOIN stock_general sg ON sg.codigo_unico = p.codigo_unico
 		WHERE p.categoria_id IN ($placeholders)
-			AND (p.activo = 1 OR p.discontinuo = 1)
+			AND p.activo = 1
+			AND p.discontinuo = 0
+			AND p.titulo NOT LIKE '%oferta%'
 			AND sg.stock > 0
 		ORDER BY p.codigo_producto, p.titulo, p.codigo_unico";
 
