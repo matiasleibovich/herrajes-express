@@ -1,10 +1,9 @@
-import { fichaImagenUrl } from "@/lib/imagenes";
 import { productoWhatsappUrl } from "@/lib/whatsapp";
 import type { FichaWeb } from "@/lib/catalogo";
 import { ImageWithFallback } from "./ImageWithFallback";
 import { WhatsAppIcon } from "./WhatsAppIcon";
 
-export function FichaCard({ ficha, whatsapp }: { ficha: FichaWeb; whatsapp?: string }) {
+export function FichaCard({ ficha, imagenSrc, whatsapp }: { ficha: FichaWeb; imagenSrc: string; whatsapp?: string }) {
 	const codigo = ficha.codigos_producto[0] || ficha.agrupador;
 	const href = productoWhatsappUrl(codigo, ficha.titulo, whatsapp);
 	const alt = codigo ? codigo + " - " + ficha.titulo : ficha.titulo;
@@ -12,7 +11,7 @@ export function FichaCard({ ficha, whatsapp }: { ficha: FichaWeb; whatsapp?: str
 		<a href={href} target="_blank" rel="noopener noreferrer" className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_10px_30px_rgba(22,22,22,0.05)] ring-1 ring-black/5 transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(22,22,22,0.1)]">
 			<div className="bg-[#f3f1ed] p-6">
 				<ImageWithFallback
-					src={fichaImagenUrl(ficha)}
+					src={imagenSrc}
 					alt={alt}
 					title={alt}
 					className="he-card-img mx-auto w-full transition duration-300 group-hover:scale-[1.03]"

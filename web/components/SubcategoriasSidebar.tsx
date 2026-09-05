@@ -5,12 +5,14 @@ import { nombreCategoriaCorto } from "@/lib/catalogo";
 export function SubcategoriasSidebar({
 	arbol,
 	activa,
+	embeber = false,
 }: {
 	arbol: CategoriaNodo[];
 	activa: CategoriaWeb;
+	embeber?: boolean;
 }) {
-	return (
-		<aside className="rounded-2xl bg-white p-6 shadow-[0_10px_30px_rgba(22,22,22,0.05)] ring-1 ring-black/5">
+	const lista = (
+		<>
 			<h2 className="font-display text-[12px] font-semibold tracking-[0.18em] text-he-oscuro">CATEGORÍAS</h2>
 			<div className="mt-5 space-y-5">
 				{arbol.map((cat) => {
@@ -41,6 +43,14 @@ export function SubcategoriasSidebar({
 					);
 				})}
 			</div>
+		</>
+	);
+	if (embeber) {
+		return lista;
+	}
+	return (
+		<aside className="rounded-2xl bg-white p-6 shadow-[0_10px_30px_rgba(22,22,22,0.05)] ring-1 ring-black/5">
+			{lista}
 		</aside>
 	);
 }

@@ -26,6 +26,8 @@ export type FichaWeb = {
 	foto: FotoWeb;
 };
 
+export type FichaListado = FichaWeb & { imagenSrc: string };
+
 export type CategoriaWeb = {
 	id: number;
 	nombre: string;
