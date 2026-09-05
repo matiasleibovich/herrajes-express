@@ -15,13 +15,13 @@ export function CtaCatalogo() {
 					<a
 						href="/Catalogo-Herrajes-Express.pdf"
 						target="catalogo_online"
-						className="inline-flex items-center border border-white/30 px-5 py-3 font-display text-[13px] font-semibold tracking-[0.1em] hover:border-white hover:bg-white hover:text-he-oscuro"
+						className="inline-flex items-center border border-white/30 px-5 py-3 font-display text-[13px] font-semibold tracking-[0.1em] text-white hover:border-white hover:bg-white hover:text-he-oscuro"
 					>
 						VER PDF · 25MB
 					</a>
 					<Link
 						href="/contacto"
-						className="inline-flex items-center bg-he-rojo px-5 py-3 font-display text-[13px] font-semibold tracking-[0.1em] hover:bg-he-rojo-oscuro"
+						className="inline-flex items-center bg-he-rojo px-5 py-3 font-display text-[13px] font-semibold tracking-[0.1em] text-white hover:bg-he-rojo-oscuro hover:text-white"
 					>
 						CONTACTANOS
 					</Link>

@@ -11,22 +11,21 @@
 	--font-display: var(--font-montserrat);
 }
 
-html {
-	scroll-behavior: smooth;
-}
-
-body {
-	background: var(--color-he-fondo);
-	color: var(--color-he-texto);
-	font-family: var(--font-open-sans), "Open Sans", sans-serif;
-}
-
-h1, h2, h3, h4, h5, .font-display {
-	font-family: var(--font-montserrat), Montserrat, sans-serif;
-}
-
-a {
-	color: inherit;
+@layer base {
+	html {
+		scroll-behavior: smooth;
+	}
+	body {
+		background: var(--color-he-fondo);
+		color: var(--color-he-texto);
+		font-family: var(--font-open-sans), "Open Sans", sans-serif;
+	}
+	h1, h2, h3, h4, h5, .font-display {
+		font-family: var(--font-montserrat), Montserrat, sans-serif;
+	}
+	a {
+		color: inherit;
+	}
 }
 
 .he-card-img {
